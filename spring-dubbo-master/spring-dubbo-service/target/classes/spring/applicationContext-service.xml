@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!--提供方应用信息，用于计算依赖关系-->
+    <dubbo:application name="spring-dubbo-service" />
+
+    <!--使用zookeeper注册中心-->
+    <dubbo:registry address="zookeeper://192.168.80.100:2181,192.168.80.101:2181,192.168.80.102:2181"
+     file="${catalina.home}/dubbo-registry/dubbo-registry.properties" />
+
+    <!--用dubbo协议在20885端口暴露服务-->
+    <dubbo:protocol name="dubbo" port="20885"></dubbo:protocol>
+
+    <!--扫描service包-->
+    <dubbo:annotation package="com.anan.service.impl" />
+
+
+</beans>

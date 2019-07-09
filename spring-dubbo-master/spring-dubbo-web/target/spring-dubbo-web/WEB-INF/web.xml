@@ -1,0 +1,33 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
+
+  <display-name>ssm</display-name>
+
+  <!--配置前端控制器-->
+  <servlet>
+    <servlet-name>ssm</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+    <!--加载springmvc.xml文件-->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring/springmvc.xml</param-value>
+    </init-param>
+
+    <!--配置tomcat启动就加载前端控制器-->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ssm</servlet-name>
+    <!--配置请求的url规则，说明：
+      1.*.do，表示以.do结尾的请求，进入前端控制器
+      2./，表示所有请求都进入前端控制器，支持restful
+    -->
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+</web-app>

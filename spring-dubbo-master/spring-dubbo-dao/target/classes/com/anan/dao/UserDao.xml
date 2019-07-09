@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anan.dao.UserDao">
+
+    <!--查询全部用户数据-->
+    <select id="findAllUsers" resultType="user">
+        select * from `user`
+    </select>
+
+    <!--根据用户Id查询用户-->
+    <select id="findUserByUserId" parameterType="long" resultType="user">
+        select * from `user` where id=#{id}
+    </select>
+
+    <!--更新用户信息-->
+    <update id="updateUser" parameterType="user">
+        update `user`
+        set username=#{username},
+            email=#{email},
+            phoneNum=#{phoneNum}
+        where id=#{id}
+    </update>
+
+    <!--查看用户详情信息-->
+    <select id="findUserDetailByUserId" parameterType="long" resultMap="userRoleResultMap">
+         SELECT
+            u.id,
+            u.username,
+            u.`password`,
+            u.email,
+            u.phoneNum,
+            u.`status`,
+            r.id roleId,
+            r.roleName,
+            r.roleDesc
+        FROM
+            `user` u
+        LEFT JOIN user_role ur ON u.id = ur.userId
+        LEFT JOIN role r ON ur.roleId = r.id
+        WHERE
+            u.id = #{id}
+    </select>
+
+    <!--配置用户到角色的一对多关系-->
+    <resultMap id="userRoleResultMap" type="user">
+        <!--配置用户的主键对应关系-->
+        <id column="id" property="id"/>
+        <!--配置用户的普通字段对应关系-->
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="phoneNum" property="phoneNum"/>
+        <result column="status" property="status"/>
+
+        <!--配置用户到角色的一对多关系-->
+        <collection property="roleList" javaType="list" ofType="role">
+            <!--配置角色主键字段对应关系-->
+            <id column="roleId" property="id"/>
+            <!--配置角色普通字段对应关系-->
+            <result column="roleName" property="roleName"/>
+            <result column="roleDesc" property="roleDesc"/>
+        </collection>
+    </resultMap>
+
+</mapper>
