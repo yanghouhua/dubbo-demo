@@ -45,7 +45,7 @@
         <aspectj.version>1.6.12</aspectj.version>
         <!--dubbo相关版本号-->
         <dubbo.version>2.7.0</dubbo.version>
-        <zookeeper.version>3.4.7</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <zkclient.version>0.1</zkclient.version>
         <curator.version>2.11.1</curator.version>
     </properties>
